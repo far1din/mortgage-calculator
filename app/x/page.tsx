@@ -89,11 +89,32 @@ export default function Demo() {
                                     onChange={(e) => setMonths(Number(e.target.value))}
                                 />
                             </div>
+
                             <div className="space-y-2">
                                 <Label htmlFor="extra">Ekstrabetaling</Label>
                                 <kbd className="text-xs text-lime-700 px-1 bg-gray-200 ml-2 rounded font-semibold">
                                     {extra.toLocaleString("no-NB")} kr
                                 </kbd>
+                                <Input
+                                    id="extra"
+                                    type="number"
+                                    value={extra}
+                                    onChange={(e) => setExtra(Number(e.target.value))}
+                                />
+                            </div>
+
+                            <div className="space-y-2">
+                                <Label htmlFor="extra">Felleskost</Label>
+                                <Input
+                                    id="extra"
+                                    type="number"
+                                    value={extra}
+                                    onChange={(e) => setExtra(Number(e.target.value))}
+                                />
+                            </div>
+
+                            <div className="space-y-2">
+                                <Label htmlFor="extra">Leieinntekt</Label>
                                 <Input
                                     id="extra"
                                     type="number"
