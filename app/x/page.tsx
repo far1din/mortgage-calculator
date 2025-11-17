@@ -7,24 +7,25 @@ import { Label } from "@/components/ui/label";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
 export default function Demo() {
-    const [principal, setPrincipal] = useState<number>(3500000);
-    const [rate, setRate] = useState<number>(4.5);
+    const [principal, setPrincipal] = useState<number>(3220000);
+    const [rate, setRate] = useState<number>(4.84);
     const [months, setMonths] = useState<number>(30 * 12);
-    const [extra, setExtra] = useState<number>(10000);
+    const [extra, setExtra] = useState<number>(0);
     const [income, setIncome] = useState<number>(19500);
+    const [otherExpenses, setOtherExpenses] = useState<number>(3338);
 
     const nextTerm = useMemo(
         () => newScheduledAfterExtraOnce(principal, rate, months, extra),
         [principal, rate, months, extra]
     );
     const sim = useMemo(
-        () => simulateScheduleKeepTerm(principal, rate, months, extra),
+        () => simulateScheduleKeepTerm(principal, rate, months, extra, income, otherExpenses),
         // .slice(0, 12)
-        [principal, rate, months, extra]
+        [principal, rate, months, extra, income, otherExpenses]
     );
 
     const originalSchedule = useMemo(
-        () => simulateScheduleKeepTerm(principal, rate, months, 0),
+        () => simulateScheduleKeepTerm(principal, rate, months, 0, 0, 0),
         [principal, rate, months]
     );
 
@@ -104,16 +105,6 @@ export default function Demo() {
                                 />
                             </div>
 
-                            {/* <div className="space-y-2">
-                                <Label htmlFor="extra">Felleskost</Label>
-                                <Input
-                                    id="extra"
-                                    type="number"
-                                    value={extra}
-                                    onChange={(e) => setExtra(Number(e.target.value))}
-                                />
-                            </div> */}
-
                             <div className="space-y-2">
                                 <Label htmlFor="extra">Leieinntekt</Label>
                                 <Input
@@ -121,6 +112,16 @@ export default function Demo() {
                                     type="number"
                                     value={income}
                                     onChange={(e) => setIncome(Number(e.target.value))}
+                                />
+                            </div>
+
+                            <div className="space-y-2">
+                                <Label htmlFor="extra">Felleskost</Label>
+                                <Input
+                                    id="extra"
+                                    type="number"
+                                    value={otherExpenses}
+                                    onChange={(e) => setOtherExpenses(Number(e.target.value))}
                                 />
                             </div>
                         </div>

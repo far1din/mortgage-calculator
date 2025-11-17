@@ -72,6 +72,8 @@ export function simulateScheduleKeepTerm(
     annualRatePct: number,
     totalMonths: number,
     extraPerMonth: number,
+    incomePerMonth: number,
+    otherExpensesPerMonth: number,
     maxRows = 1000
 ): ScheduleRow[] {
     const rows: ScheduleRow[] = [];
@@ -85,7 +87,14 @@ export function simulateScheduleKeepTerm(
         const beforeScheduled = monthlyPayment(remaining, monthlyRate, monthsLeft);
         const interest = remaining * monthlyRate;
         const principalPaid = Math.min(Math.max(beforeScheduled - interest, 0), remaining);
-        const extraApplied = Math.min(extraPerMonth, Math.max(remaining - principalPaid, 0));
+
+        const expenses = principalPaid + interest;
+        const income = incomePerMonth - expenses - otherExpensesPerMonth;
+
+        const ex = income > 0 ? income + extraPerMonth : extraPerMonth;
+
+        const extraApplied = Math.min(ex, Math.max(remaining - principalPaid, 0));
+
         remaining = Math.max(remaining - principalPaid - extraApplied, 0);
         const nextMonthsLeft = Math.max(monthsLeft - 1, 0);
         const nextScheduled = nextMonthsLeft > 0 ? monthlyPayment(remaining, monthlyRate, nextMonthsLeft) : 0;
