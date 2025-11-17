@@ -5,14 +5,15 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import CodeBlock from "./code-block";
 
 export default function Calculator() {
-    const [principal, setPrincipal] = useState<number>(3225000);
-    const [rate, setRate] = useState<number>(4.84);
-    const [months, setMonths] = useState<number>(27 * 12);
+    const [principal, setPrincipal] = useState<number>(6200000);
+    const [rate, setRate] = useState<number>(7.2);
+    const [months, setMonths] = useState<number>(30 * 12);
     const [extra, setExtra] = useState<number>(0);
-    const [income, setIncome] = useState<number>(19500);
-    const [otherExpenses, setOtherExpenses] = useState<number>(3340);
+    const [income, setIncome] = useState<number>(60000);
+    const [otherExpenses, setOtherExpenses] = useState<number>(9500);
 
     const nextTerm = useMemo(
         () => newScheduledAfterExtraOnce(principal, rate, months, extra),
@@ -58,9 +59,7 @@ export default function Calculator() {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div className="space-y-2">
                                 <Label htmlFor="principal">Lånebeløp</Label>
-                                <kbd className="text-xs text-red-700 px-1 bg-gray-200 ml-2 rounded font-semibold">
-                                    {principal.toLocaleString("no-NB")} kr
-                                </kbd>
+                                <CodeBlock className="text-red-700">{principal.toLocaleString("no-NB")} kr</CodeBlock>
                                 <Input
                                     id="principal"
                                     type="number"
@@ -70,7 +69,7 @@ export default function Calculator() {
                             </div>
                             <div className="space-y-2">
                                 <Label htmlFor="rate">Rente (%)</Label>
-                                <kbd className="text-xs text-gray-900 px-1 bg-gray-200 ml-2 rounded">{rate}%</kbd>
+                                <CodeBlock className="text-gray-900">{rate}%</CodeBlock>
                                 <Input
                                     id="rate"
                                     type="number"
@@ -80,10 +79,8 @@ export default function Calculator() {
                                 />
                             </div>
                             <div className="space-y-2">
-                                <Label htmlFor="months">Løpetid (måneder)</Label>
-                                <kbd className="text-xs text-lime-700 px-1 bg-gray-200 ml-2 rounded font-semibold">
-                                    {formatMonths(months)}
-                                </kbd>
+                                <Label htmlFor="months">Løpetid (mnd)</Label>
+                                <CodeBlock className="text-gray-900">{formatMonths(months)}</CodeBlock>
                                 <Input
                                     id="months"
                                     type="number"
@@ -94,9 +91,7 @@ export default function Calculator() {
 
                             <div className="space-y-2">
                                 <Label htmlFor="extra">Ekstrabetaling</Label>
-                                <kbd className="text-xs text-lime-700 px-1 bg-gray-200 ml-2 rounded font-semibold">
-                                    {extra.toLocaleString("no-NB")} kr
-                                </kbd>
+                                <CodeBlock className="text-lime-700">{extra.toLocaleString("no-NB")} kr</CodeBlock>
                                 <Input
                                     id="extra"
                                     type="number"
@@ -107,6 +102,7 @@ export default function Calculator() {
 
                             <div className="space-y-2">
                                 <Label htmlFor="extra">Leieinntekt</Label>
+                                <CodeBlock className="text-green-700">{income.toLocaleString("no-NB")} kr</CodeBlock>
                                 <Input
                                     id="extra"
                                     type="number"
@@ -117,6 +113,9 @@ export default function Calculator() {
 
                             <div className="space-y-2">
                                 <Label htmlFor="extra">Felleskost</Label>
+                                <CodeBlock className="text-blue-700">
+                                    {otherExpenses.toLocaleString("no-NB")} kr
+                                </CodeBlock>
                                 <Input
                                     id="extra"
                                     type="number"
@@ -137,20 +136,20 @@ export default function Calculator() {
                         <div className="grid grid-cols-2 gap-4">
                             <div>
                                 <Label htmlFor="principal">Løpetid</Label>
-                                <kbd className="text-xs text-red-700 px-1 bg-gray-200 ml-2 rounded font-semibold">
+                                <CodeBlock className="text-gray-700">
                                     {formatMonths(originalSchedule.length - sim.length)}
-                                </kbd>
+                                </CodeBlock>
                                 <p className="text-xl font-semibold">{formatMonths(sim.length)}</p>
                             </div>
                             <div>
                                 <Label htmlFor="principal">Renter</Label>
-                                <kbd className="text-xs text-red-700 px-1 bg-gray-200 ml-2 rounded font-semibold">
+                                <CodeBlock className="text-red-700">
                                     {(
                                         Math.round(originalSchedule.reduce((acc, r) => acc + r.interest, 0)) -
                                         Math.round(sim.reduce((acc, r) => acc + r.interest, 0))
                                     ).toLocaleString("no-NB")}{" "}
                                     kr
-                                </kbd>
+                                </CodeBlock>
                                 <p className="text-xl font-semibold">
                                     {Math.round(sim.reduce((acc, r) => acc + r.interest, 0)).toLocaleString("no-NB")} kr
                                 </p>
