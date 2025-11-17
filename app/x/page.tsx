@@ -11,6 +11,7 @@ export default function Demo() {
     const [rate, setRate] = useState<number>(4.5);
     const [months, setMonths] = useState<number>(30 * 12);
     const [extra, setExtra] = useState<number>(10000);
+    const [income, setIncome] = useState<number>(19500);
 
     const nextTerm = useMemo(
         () => newScheduledAfterExtraOnce(principal, rate, months, extra),
@@ -103,7 +104,7 @@ export default function Demo() {
                                 />
                             </div>
 
-                            <div className="space-y-2">
+                            {/* <div className="space-y-2">
                                 <Label htmlFor="extra">Felleskost</Label>
                                 <Input
                                     id="extra"
@@ -111,15 +112,15 @@ export default function Demo() {
                                     value={extra}
                                     onChange={(e) => setExtra(Number(e.target.value))}
                                 />
-                            </div>
+                            </div> */}
 
                             <div className="space-y-2">
                                 <Label htmlFor="extra">Leieinntekt</Label>
                                 <Input
                                     id="extra"
                                     type="number"
-                                    value={extra}
-                                    onChange={(e) => setExtra(Number(e.target.value))}
+                                    value={income}
+                                    onChange={(e) => setIncome(Number(e.target.value))}
                                 />
                             </div>
                         </div>
