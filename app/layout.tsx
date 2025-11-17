@@ -11,11 +11,7 @@ export const metadata: Metadata = {
     description: "Calculate your mortgage payments and see how much you can save by paying extra",
 };
 
-export default function RootLayout({
-    children,
-}: Readonly<{
-    children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
     return (
         <html lang="en">
             <body className={`${briccolage.className} antialiased`}>{children}</body>

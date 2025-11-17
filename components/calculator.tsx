@@ -7,12 +7,12 @@ import { Label } from "@/components/ui/label";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
 export default function Calculator() {
-    const [principal, setPrincipal] = useState<number>(3220000);
+    const [principal, setPrincipal] = useState<number>(3225000);
     const [rate, setRate] = useState<number>(4.84);
-    const [months, setMonths] = useState<number>(30 * 12);
+    const [months, setMonths] = useState<number>(27 * 12);
     const [extra, setExtra] = useState<number>(0);
     const [income, setIncome] = useState<number>(19500);
-    const [otherExpenses, setOtherExpenses] = useState<number>(3338);
+    const [otherExpenses, setOtherExpenses] = useState<number>(3340);
 
     const nextTerm = useMemo(
         () => newScheduledAfterExtraOnce(principal, rate, months, extra),
@@ -70,7 +70,7 @@ export default function Calculator() {
                             </div>
                             <div className="space-y-2">
                                 <Label htmlFor="rate">Rente (%)</Label>
-                                <kbd className="text-xs text-gray-900 px-1 bg-gray-200 ml-2 rounded">{rate}</kbd>
+                                <kbd className="text-xs text-gray-900 px-1 bg-gray-200 ml-2 rounded">{rate}%</kbd>
                                 <Input
                                     id="rate"
                                     type="number"
